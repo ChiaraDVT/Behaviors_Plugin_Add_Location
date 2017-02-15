@@ -86,6 +86,7 @@ class PluginBehaviorsConfig extends CommonDBTM {
                      `is_ticketsolutiontype_mandatory` tinyint(1) NOT NULL default '0',
                      `is_ticketsolution_mandatory` tinyint(1) NOT NULL default '0',
                      `is_ticketcategory_mandatory` tinyint(1) NOT NULL default '0',
+                     `is_ticketlocation_mandatory` tinyint(1) NOT NULL default '0',
                      `is_tickettech_mandatory` tinyint(1) NOT NULL default '0',
                      `is_ticketrealtime_mandatory` tinyint(1) NOT NULL default '0',
                      `is_requester_mandatory` tinyint(1) NOT NULL default '0',
@@ -147,6 +148,9 @@ class PluginBehaviorsConfig extends CommonDBTM {
          if (!FieldExists($table, 'is_tickettech_mandatory')) {
             $mig->addField($table, 'is_tickettech_mandatory', 'bool');
          }
+       
+        // Version 0.90 - location mandatory
+         $mig->addField($table, 'is_ticketlocation_mandatory', 'bool');
       }
 
       return true;
@@ -246,6 +250,12 @@ class PluginBehaviorsConfig extends CommonDBTM {
       echo "<td>".__('Category is mandatory before ticket is solved/closed', 'behaviors')."</td><td>";
       Dropdown::showYesNo("is_ticketcategory_mandatory",
                           $config->fields['is_ticketcategory_mandatory']);
+      echo "</tr>";
+    
+      echo "<tr class='tab_bg_1'>";
+      echo "<td>".__('Location is mandatory before ticket is solved/closed', 'behaviors')."</td><td>";
+      Dropdown::showYesNo("is_ticketlocation_mandatory",
+                         $config->fields['is_ticketlocation_mandatory']);
       echo "</tr>";
 
       echo "<tr class='tab_bg_1'>";
